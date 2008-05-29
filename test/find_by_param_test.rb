@@ -68,6 +68,12 @@ class FindByParamTest < Test::Unit::TestCase
     assert_equal 'a-test-post', blog_post.slug
   end
 
+  def test_initializes_param_on_create_should_not_override_a_set_value
+    Post.find_param(:slug, :initialize_with => :title)
+    blog_post = Post.create(:title => 'A Test Post', :slug => 'test-post')
+    assert_equal 'test-post', blog_post.slug
+  end
+
   def test_initializes_param_on_create_using_a_custom_initializer
     Post.find_param(:slug, :initialize_with => :title, :using => Proc.new { |value| value.upcase.gsub(/\s+/, '_') })
     blog_post = Post.create(:title => 'A Test Post')

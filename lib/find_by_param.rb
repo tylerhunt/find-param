@@ -40,9 +40,11 @@ module FindByParam
       using = options.delete(:using)
 
       define_method(:set_param) do
-        value = read_attribute(source)
-        value = using.respond_to?(:call) ? using.call(value) : value.downcase.gsub(/[^\w]+/, '-')
-        write_attribute(param,  value)
+        unless read_attribute(param)
+          value = read_attribute(source)
+          value = using.respond_to?(:call) ? using.call(value) : value.downcase.gsub(/[^\w]+/, '-')
+          write_attribute(param,  value)
+        end
       end
       private :set_param
 
