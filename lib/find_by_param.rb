@@ -40,7 +40,7 @@ module FindByParam
       using = options.delete(:using)
 
       define_method(:set_param) do
-        unless read_attribute(param)
+        unless read_attribute(param) && read_attribute(param).any?
           value = read_attribute(source)
           value = using.respond_to?(:call) ? using.call(value) : value.downcase.gsub(/[^\w]+/, '-')
           write_attribute(param,  value)

@@ -17,7 +17,7 @@ RAILS_ENV  = 'test' unless defined? RAILS_ENV
 
 ActiveRecord::Base.send(:extend, FindByParam::ClassMethods)
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :dbfile => ':memory:')
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+#ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 ActiveRecord::Schema.define(:version => 1) do
   create_table :posts do |t|
